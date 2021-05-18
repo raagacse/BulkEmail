@@ -1,0 +1,25 @@
+<div class="gradient-header pt-1 px-1 pb-0" >
+
+        <ul class="nav position-relative ml-md-auto">
+            <li [ngClass]="{'current':showFU}" class="nav-item current cursor-pointer">
+                <a (click)="FileUploadLink()" class="nav-link">File Upload</a>
+            </li>
+            <li [ngClass]="{'current':showCC}" class="nav-item cursor-pointer">
+                <a (click)="CreateContentLink()"  class="nav-link">Create Content</a>
+            </li>
+            <li [ngClass]="{'current':showAC}" class="nav-item cursor-pointer">
+                <a (click)="AvailableContentLink()" class="nav-link">Available Content</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Admin</a>
+            </li> -->
+            <li class="highlited">
+            </li>/
+        </ul>
+    
+    </div>
+
+    <router-outlet></router-outlet>
+
+    
+    

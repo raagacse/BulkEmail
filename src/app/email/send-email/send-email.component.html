@@ -1,0 +1,74 @@
+<mat-progress-bar *ngIf="progressbar" class="progress-bar" style="position: fixed;"  mode="indeterminate"></mat-progress-bar>
+<div class="sendit" *ngIf="showContent">
+    <button *ngIf="showSchedule" (click)="Schedule()" 
+    class="btn btn-primary b-radius-0 cursor-pointer mr-2">Schedule</button>
+
+    <button (click)="SendEmail()" class="btn btn-primary b-radius-0 cursor-pointer">Send E-mail</button>
+</div>    
+<div>        
+    <div> 
+        <div class="em-lst">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let em of emailLst">
+                        <td>{{ em.name }}</td>
+                        <td>{{ em.email }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>        
+        <div class="em-content" [ngClass]="{'d-none':!showContent}">
+            <div class="email-from">
+                Email From : {{ selectedContent.emailFrom }}
+            </div>            
+            <div class="email-sub">
+                Email Subject : {{ selectedContent.emailSubject }}
+            </div>
+            <div id="eContent">
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="scheduleStatus" class="em-content" style="font-weight: 500;">
+        {{emailStatus}}
+    </div>
+
+    <div *ngIf="emailStatusLst.length>0" class="em-content" >
+        <!-- <div class="note-msg">
+                <span style="margin-right:15px;color: green;"><i class="fa fa-check" aria-hidden="true"></i> - Success</span>
+                <span style="color: red;"><i class="fa fa-ban" aria-hidden="true"></i> - Error</span>
+        </div> -->
+        <div >
+            <table class="table" style="background-color:#ffffff;">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Email Send Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let em of emailStatusLst;let i=index">
+                        <td scope="row">{{ i+1 }}</td>
+                        <td>{{ em.recipientName }}</td>
+                        <td>{{ em.emailAddr }}</td>
+                        <td *ngIf="em.emailStatus === 'S'" style="color: green;"> 
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                        <td *ngIf="em.emailStatus === 'E'" style="color: red;"> 
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

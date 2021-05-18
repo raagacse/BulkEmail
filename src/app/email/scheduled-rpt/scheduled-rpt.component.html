@@ -1,0 +1,115 @@
+<mat-progress-bar *ngIf="progressbar" class="progress-bar" style="position: fixed;" mode="indeterminate">
+</mat-progress-bar>
+<div class="rpt-title">
+    Scheduled Email Status Report
+</div>
+<div class="uh-div effect5">
+    <table class="table" style="font-size: 12px;">
+        <thead style="background-color: #6a5165;color:#ffffff;">
+            <tr>
+                <th scope="col">Upload Id</th>
+                <th scope="col">E - Total Count</th>
+                <th scope="col">E - Success Count</th>
+                <th scope="col">E - Failed Count</th>
+                <th scope="col">E - Unsubscribed Count</th>
+                <th scope="col">E - Yet To Send</th>
+                <th scope="col">Download Excel</th>
+                <th scope="col">Email List</th>
+                <th scope="col">Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let uh of srcuploadList">
+                <!-- <td><label class="checkbox-inline"><input type="checkbox" 
+                    name="uh.uploadId"
+                    [(ngModel)]="uh.selected"
+                    (click)="UploadSelection(uh)">
+                </label></td> -->
+                <td>{{ uh.uploadId }}</td>
+                <td>{{ uh.totalEmailCount }}</td>
+                <td>{{ uh.successCount }}</td>
+                <td>{{ uh.failureCount }}</td>
+                <td>{{ uh.unsubscribed }}</td>
+                <td>{{ uh.yetToSend }}</td>
+                <td (click)="DownloadExcel(uh.uploadId)"><i class="fa fa-file-excel-o" aria-hidden="true"></i></td>
+                <td><span class="link-btn cursor-pointer" (click)="EmailList(uh.uploadId)">
+                        <i class="fa fa-list-ol" aria-hidden="true"></i>
+
+                    </span></td>
+                <td><span class="link-btn cursor-pointer" (click)="EmailContent(uh.contentId)">
+                        <i class="fa fa-info" aria-hidden="true"></i></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div [ngClass]="{'active': viewEmailStatus}" class="likemodel">
+
+    <div (click)="viewEmailStatus=false" class="likemodel__dismis">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 
+            17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
+    </div>
+    <div class="emstatus-likemodel">
+        <div class="uh-div effect5">
+            <!-- <div  style="text-align: right;">
+                        <span style="margin-right:15px;color: green;"><i class="fa fa-check" aria-hidden="true"></i> - Success</span>
+                        <span style="color: red;"><i class="fa fa-ban" aria-hidden="true"></i> - Error</span>
+                    </div> -->
+            <table class="table" style="font-size: 12px;">
+                <thead style="background-color: #6a5165;color:#ffffff;">
+                    <tr>
+                        <th scope="col">Upload Id</th>
+                        <th scope="col">Recipient Name</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Email Send Status</th>
+                        <th scope="col">Scheduled Date</th>
+                        <th scope="col">Processed Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ess of emailStatusLst">
+                        <td style="padding-left: 30px">{{ ess.groupId }}</td>
+                        <td>{{ ess.recipientName }}</td>
+                        <td>{{ ess.emailAddr }}</td>
+
+                        <td *ngIf="ess.emailStatus === 'S'" style="color: green;">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                        <td *ngIf="ess.emailStatus === 'E'" style="color: red;">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                        </td>
+                        <td *ngIf="ess.emailStatus === 'U'" style="color: red;">
+                            <i class="fa fa-magnet" aria-hidden="true"></i>
+                        </td>
+                        <td *ngIf="ess.emailStatus === 'N'" style="color: red;">
+                        </td>
+                        <td>{{ ess.scheduledDt }}</td>
+                        <td>{{ ess.processDt }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div [ngClass]="{'active': viewEmailContent}" class="likemodel">
+
+    <div (click)="viewEmailContent=false" class="likemodel__dismis">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 
+            17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
+    </div>
+    <div class="likemodel__in">
+        <div class="email-from">
+            Email From : {{ emailContent.emailFrom }}
+        </div>
+        <div class="email-sub">
+            Email Subject : {{ emailContent.emailSubject }}
+        </div>
+        <div id="eContent">
+        </div>
+    </div>
+</div>

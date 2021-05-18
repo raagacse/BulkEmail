@@ -1,0 +1,66 @@
+<form (submit)="Login()">
+<div class="signin-page">    
+    <div class="card mb-3 mx-auto custom">
+        <div class="row no-gutters ">     
+            <mat-progress-bar *ngIf="progressbar" mode="indeterminate"></mat-progress-bar>
+            <div class="col-md-4 position-relative" style="background-color: #6f5b91;color:white;">
+                <div class="cardhead">
+                    SignIn
+                </div>
+
+            </div>
+            <div class="col-md-8 p-5">
+                <div class="card-body p-0">                    
+                    <div  class="v-field-wrap" 
+                    [ngClass]="{'active' : focusUName}">
+                        <div class="v-field-innerfix">
+                            <input name="usrId" type="text" class="v-field-element cursor-pointer"
+                            required
+                            [(ngModel)]="userName"
+                            (click)="focusUName=true;"
+                            (focus)="focusUName=true;"
+                            (blur)="UserNameStyleHandling()"
+                            #refUserId/>
+                            <label (click)="focusUName=true;"                            
+                            class="v-label">User Name</label>
+                        </div>
+                        <div class="v-field-underline">
+                            <span class="ripple-line"></span>
+                        </div>
+                        <div *ngIf="errMsg != ''" class="text-danger">
+                            <span>{{ errMsg }}</span>
+                        </div>
+                    </div>
+
+                    <div (click)="focusPass=true" [ngClass]="{'active':focusPass}" class="v-field-wrap">
+                        <div  class="v-field-innerfix">
+                            <input name="pwd" type="password" class="v-field-element"
+                            required
+                            [(ngModel)]="password"
+                            (click)="focusPass=true;"
+                            (focus)="focusPass=true;"
+                            (blur)="PwdStyleHandling()"
+                            #refPwd/>          
+                            <label class="v-label"
+                            (click)="focusPass=true;">Password</label>
+                        </div>
+                        <div class="v-field-underline">
+                            <span class="ripple-line"></span>
+                        </div>
+                        <!-- <div class="text-right">
+                            <button class="btn btn-link">Forgot Password?</button>
+                        </div> -->
+                    </div>
+                    <div>                        
+                        <button type="submit" class="v-btn">Login</button>                        
+                    </div>
+                    <!-- <div class="signinstyle flex1 pt-2">
+                        New User? <button class="btn btn-link bold">SignUp</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>

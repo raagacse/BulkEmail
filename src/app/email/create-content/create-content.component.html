@@ -1,0 +1,93 @@
+  <mat-progress-bar *ngIf="progressbar" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+  <form>
+  <div class="mailcontroler create-content">
+    <div class="cc__heading mb-3">      
+      <div class="head">{{ title }}</div>      
+    </div>
+
+    <div class="v-field-wrap"
+    [ngClass]="{'active' : focusSubject, 'filled' : emailSubject !='' && !focusSubject}">
+      <div class="v-field-innerfix">
+        <input type="text" name="Subject" class="v-field-element cursor-pointer"
+        required
+        [(ngModel)]="emailSubject"      
+        (click)="focusSubject=true;"
+        (focus)="focusSubject=true;"
+        (blur)="SubjectStyleHandling()"
+        #refesubject = "ngModel"
+        autocomplete="false" />
+        <label (click)="focusSubject=true;"        
+        class="v-label cursor-pointer">Subject</label>
+      </div>
+      <div class="v-field-underline">
+        <span class="ripple-line"></span>
+      </div>
+      <div *ngIf ="refesubject.invalid && refesubject.touched" class="text-danger">
+        <span>Please enter the subject!</span>
+      </div>
+    </div>  
+    
+    <div>
+    <div class="form-group">
+      <label for="efrom">Select Email From</label>
+      <select class="form-control" id="emfrom" name="efrom" 
+      [(ngModel)]="emailFrom"
+      #refef="ngModel"
+      required      
+      >
+        <option value="" selected disabled>Select email from</option>
+        <option *ngFor="let efrm of emailFromLst" [value]="efrm.emailFrom">{{ efrm.emailFrom }}</option>        
+      </select>
+    </div>   
+    <div *ngIf ="emailFrom == '' && refef.touched" class="text-danger">
+      <span>Please select email from!</span>
+    </div>
+  </div>
+    
+    <div class="sendit">      
+      <input *ngIf="activeMenu == 'chc'" (click)="BackToContentList()" type="button" value="Back" class="btn btn-md btn-secondary b-radius-0 cursor-pointer mr-2">
+      <input (click)="SaveContent(refContent)" [disabled]="refesubject.invalid" type="button" value="Save" class="btn btn-md btn-primary b-radius-0 cursor-pointer">
+    </div>
+
+    <div *ngIf ="!validEContent" class="text-danger">
+        <span>Please enter the email content!</span>
+    </div>
+    <div class="content-section">
+      <div class="cs__body">
+        <div class="tools ">
+          <ul class="pagination justify-content-end cursor-pointer">
+            <li class="page-link p-0 cursor-pointer" style="font-weight: bold;">
+              <input type="button" (click)="Bold()" class="btn-format" value="B"></li>
+            <li class="page-link p-0" style="font-style: italic;">
+              <input type="button" (click)="Italic()" class="btn-format" value="I"></li>
+            <li class="page-link p-0" style="font-style: underline;">
+                <input type="button" (click)="Underline()" class="btn-format" value="U"></li>              
+            <li class="page-link p-0">
+              <button (click)="CreateLink()" class="btn-format">Link</button>
+            </li>
+            <li class="page-link p-0">
+              <select name="fcolor" (change)="FontSize()" [(ngModel)]="fontSize"
+                class="form-control  border-0 b-radius-0 cursor-pointer">
+                <option value="0">font Size</option>
+                <option value="6">Heading</option>
+                <option value="5">Sub heading</option>
+                <option value="4">Caption</option>
+              </select></li>
+            <li class="page-link p-0">
+              <select name="fcolor" (change)="FontName()" [(ngModel)]="fontName"
+                class="form-control  border-0 b-radius-0 cursor-pointer">
+                <option value="0">font family</option>
+                <option [value]="fs" *ngFor="let fs of srcfontName">{{ fs }}</option>
+
+              </select></li>
+          </ul>
+
+          <div id="eContent" class="cs__body--content"
+          #refContent
+          contenteditable="true">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

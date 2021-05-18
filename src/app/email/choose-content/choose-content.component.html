@@ -1,0 +1,64 @@
+<form>
+  <div [ngClass]="{'mt-100':!fupload}">
+    <div id="{{ i }}" *ngFor="let content of ContentLst; let i=index" (click)="SelectContent(content)"
+      [ngClass]="{'active':selectedContent.contentId === content.contentId }" class="content-card position-relative mx-auto">
+      <div class="v-group-btns">
+        <div id="{{ content.contentId }}" (click)="ShowOptions(content.contentId)"
+          [ngClass]="{'open': content.contentId == checkContentId }" class="viewbox">
+          <span class="viewtext">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+              </svg>
+          </span>
+          <span class="close-vb svg-close svg-bg p-1">
+          </span>
+          <div class="model-content">
+            <div class="quick-btns-group">
+
+              <div (click)="Edit(content)" class="quick-btns">
+                <span class="svg-edit svg-bg  mr-1"></span>
+                <span>Edit</span>
+              </div>
+
+              <div (click)="Delete(content.contentId)" class="quick-btns">
+                <span class="svg-delete svg-bg mr-1"></span>
+                <span>Delete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-title">
+        {{ content.emailSubject }}
+      </div>
+      <div id="sContent" class="content-body">
+        <label [innerHtml]="content.emailContentShort"></label>
+        <div>
+        <a class="btn-link btn p-0" (click)="ShowFullContent(content)">
+          View More..</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{'active': viewMore}" class="likemodel">
+
+    <div (click)="viewMore=false" class="likemodel__dismis">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 
+            17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        <path d="M0 0h24v24H0z" fill="none" /></svg>
+    </div>
+    <div class="likemodel__in">
+      <div class="email-from">
+          Email From : {{ viewMoreContent.emailFrom }}
+      </div>            
+      <div class="email-sub">
+        Email Subject : {{ viewMoreContent.emailSubject }}
+      </div>            
+      <div id="eContent">
+      </div>
+    </div>
+  </div>
+</form>

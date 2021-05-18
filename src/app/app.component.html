@@ -1,0 +1,50 @@
+<div *ngIf="loggedIn" class="gradient-header pt-1 px-1 pb-0">
+
+    <ul class="nav position-relative ml-md-auto">
+        <li [ngClass]="{'current':showFU}" class="nav-item current cursor-pointer">
+            <a (click)="FileUploadLink()" class="nav-link">File Upload</a>
+        </li>
+        <li [ngClass]="{'current':showCC}" class="nav-item cursor-pointer">
+            <a (click)="CreateContentLink()" class="nav-link">Create Content</a>
+        </li>
+        <li [ngClass]="{'current':showAC}" class="nav-item cursor-pointer">
+            <a (click)="AvailableContentLink()" class="nav-link">Available Content</a>
+        </li>
+        <!-- <li [ngClass]="{'current':showOS}" class="nav-item cursor-pointer">
+            <a (click)="OtherServices()" class="nav-link">Others Services</a>
+            <a (click)="ScheduledRpt()" class="nav-link">Scheduled Report</a>
+        </li> -->
+
+        <li (click)="Rpt()" class="nav-item cursor-pointer">
+            <div class="dropdown show">
+                <a class="btn dropdown-toggle" role="button" id="dropdownrpt" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Reports
+                </a>
+                <div [ngClass]="{'show':showOS}" class="dropdown-menu" aria-labelledby="dropdownrpt">
+                    <a (click)="TransactReport()" class="nav-link">Transact Report</a>
+                    <a (click)="ScheduledRpt()" class="nav-link">Scheduled Report</a>
+                </div>
+            </div>
+        </li>
+
+        <li (click)="ProfileMenu()" class="nav-item cursor-pointer">
+            <div class="dropdown show">
+                <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{ userName }}
+                </a>
+                <div [ngClass]="{'show':showProfileMenu}" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item cursor-pointer">My Profile</a>
+                    <!-- <a class="dropdown-item cursor-pointer">Balance</a> -->
+                    <a (click)="Signout()" class="dropdown-item cursor-pointer">Signout</a>
+                </div>
+            </div>
+        </li>
+        <li class="highlited">
+        </li>
+    </ul>
+
+
+</div>
+<router-outlet></router-outlet>

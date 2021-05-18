@@ -1,0 +1,99 @@
+<mat-progress-bar *ngIf="progressbar" class="progress-bar" style="position: fixed;" mode="indeterminate"></mat-progress-bar>
+<div class="mailposter mail-select">
+    <div class="mailposter__info mail-select__head">
+        File Upload
+    </div>
+    <div *ngIf="uploadCompleted" class="savefile _savedfile">
+        <div class="sf__title">{{ fileName }}</div>
+        <div class="sf__fname">this is the file</div>
+        <div class="sf__change text-center">
+            <div (click)="EmailPopup()" class="btn btn-sm btn-primary">view</div>
+            <div (click)="ChangeFile()" class="btn btn-sm btn-link">change</div>
+        </div>
+    </div>
+</div>
+
+<div class="mailcontroler">
+    <div class="m-4">
+
+        <div [ngClass]="{'d-none': fileSelected }" class="draganddrop">
+            <label class="flex2">
+                <input type="file" #file onclick="this.value = null" (change)="onFileChange($event)" class="d-none">
+                <span>Browse your file to upload emails</span>
+            </label>
+        </div>
+        <div class=" ">
+            <div [ngClass]="{'d-none': !enableProgressBar }" class="progres-status mb-5">
+                <div class="flex1 mb-1">
+                    <div class="fname">{{ fileName }}</div>
+                    <div class="uploadstatus">
+                        <span [ngClass]="{'d-none': progressPer != 100 }">Uploading...</span>
+                        <span [ngClass]="{'d-none': progressPer == 100 }">uploaded</span>
+                    </div>
+                </div>
+                <div class="progress custom">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progressPer" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div *ngIf="fileSelected && !uploadCompleted" class="savefile">
+                <div class="sf__title">{{ fileName }}</div>
+                <div class="sf__fname">this is the file</div>
+                <div (click)="FileUpload(file.files)" class="btn btn-sm btn-primary sf__save">Upload</div>
+                <div class="sf__dismiss flex2">
+                    <span (click)="RemoveFile()">X</span></div>
+            </div>
+
+        </div>
+        <div class="d-none">
+            <div class="extendwell ">
+                <div class="flex1 mb-1">
+                    <div class="fname">FileName</div>
+                    <div class="uploadstatus">
+                        <div class="btn btn-sm btn-link" style="width: 70px">Change</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div *ngIf="uploadCompleted" class="mailcontroler">    
+    <div *ngIf="emailStatus!=''" style="color: green;position: fixed;top:97px;">
+        {{ emailStatus }}</div>
+    <div class="sendit">                        
+        <button [disabled]="selectedContent.contentId === 0" routerLink="/se" class="btn btn-md btn-primary b-radius-0 cursor-pointer">Next</button>
+    </div>
+</div>
+
+<div *ngIf="uploadCompleted" class="mailcontroler">
+    <div class="content-sec-head">
+        Choose a content
+    </div>
+    <app-choose-content></app-choose-content>
+</div>
+
+<div [ngClass]="{'active': showEmailPopup}" class="likemodel">
+
+    <div (click)="showEmailPopup=false" class="likemodel__dismis">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 
+            17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
+    </div>
+    <div class="likemodel__in">
+        <div class="lm__in-head">
+            Email address from uploaded file
+        </div>
+        <ul class="list-group custom">
+            <li *ngFor="let em of emailLst" class="list-group-item flex-col">
+                <span>{{ em.name }}</span>
+                <span>{{ em.email }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
