@@ -1,0 +1,2 @@
+# BulkEmail
+BulkEmail Angular App
